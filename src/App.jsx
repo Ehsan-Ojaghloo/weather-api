@@ -7,7 +7,7 @@ function App() {
   const [weather, setWeather] = useState()
   
   function whatIsWeather() {
-    fetch('https://api.openweathermap.org/data/2.5/weather?appid=582560638c1b004bd0c8a5cd5e2f7efa&q=tehran')
+    fetch(`https://api.openweathermap.org/data/2.5/weather?appid=582560638c1b004bd0c8a5cd5e2f7efa&q=${inputTag.current.value}`)
       .then(res => res.json())
       .then(json=>setWeather(json))
   }
