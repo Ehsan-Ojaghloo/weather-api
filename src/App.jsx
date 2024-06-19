@@ -1,10 +1,12 @@
-import React , {useState } from 'react'
+import React , {useRef, useState } from 'react'
 import './pages/App.scss'
 import Navbar from './components/Navbar'
 
 function App() {
 
-  const [weather, setWeather] = useState()
+  const [weather, setWeather] = useState();
+
+  const inputTag = useRef();
   
   function whatIsWeather() {
     fetch(`https://api.openweathermap.org/data/2.5/weather?appid=582560638c1b004bd0c8a5cd5e2f7efa&q=${inputTag.current.value}`)
@@ -19,7 +21,7 @@ function App() {
         <Navbar />
         <div className='search-container'>
           <div className="search-inner">
-            <input type="search" id='search-bar' placeholder='Enter Your Region' />
+            <input type="search" ref={inputTag}  id='search-bar' placeholder='Enter Your Region' />
             <button onClick={whatIsWeather}> Search </button>
           </div>
         </div>
