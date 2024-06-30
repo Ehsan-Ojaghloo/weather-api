@@ -4,22 +4,17 @@ import Navbar from './components/Navbar'
 
 function App() {
 
-  const [itemList , setItemList] = useState([]);
-  const [searched, setSearched] = useState([]);
+  const [user , setUser] = useState([]);
+  const [filter , seFilter] = useState([]);
+  const [serached , setSearched] = useState(false)
 
-  const query = useRef();
+  const input = useRef();
 
   useEffect(()=>{
-    fetch(`https://jsonplaceholder.typicode.com/users`)
+    fetch(`https://jsonplaceholder.typicode.com/users?`)
       .then((res) => res.json())
-      .then((json) => setItemList(json))
-  }, [])
-  
-  const search = () => {
-    fetch(`https://jsonplaceholder.typicode.com/users?name=${query.current.value}`)
-      .then((res) => res.json())
-      .then((json) => setItemList(json))
-  };
+      
+  })
 
 
 
@@ -34,14 +29,6 @@ function App() {
           </div>
         </div>
         {itemList.map((userInfo)=>(
-          <div className="api-info">
-            <h1>{userInfo.name}</h1>
-            <h3><ins>{userInfo.email}</ins></h3>
-            <h2>{userInfo.website}</h2>
-          </div>
-        ))}
-
-        {searched.map((userInfo)=>(
           <div className="api-info">
             <h1>{userInfo.name}</h1>
             <h3><ins>{userInfo.email}</ins></h3>
