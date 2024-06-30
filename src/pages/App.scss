@@ -7,9 +7,15 @@
     .app-upper-section {
         display: flex;
         justify-content: center;
+        align-items: center;
         text-align: center;
         flex-direction: column;
         gap: 50px;
+
+        select {
+            width: 230px;
+            padding: 5px;
+        }
 
         .api-info {
             font-family: sans-serif;
