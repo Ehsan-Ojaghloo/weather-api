@@ -1,18 +1,26 @@
-import React , {useRef, useState } from 'react'
+import React , {useRef, useState , useEffect} from 'react'
 import './pages/App.scss'
 import Navbar from './components/Navbar'
 
 function App() {
 
-const[user , setUser] = useState([]);
+  const [itemList , setItemList] = useState([]);
+  const [searched, setSearched] = useState([]);
 
-const users = useRef()
+  const query = useRef();
 
-function handleUser() {
-  fetch(`https://jsonplaceholder.typicode.com/users`)
-    .then(res => res.json())
-    .then(json => setUser(json))
-}
+  useEffect(()=>{
+    fetch(`https://jsonplaceholder.typicode.com/users`)
+      .then((res) => res.json())
+      .then((json) => setItemList(json))
+  }, [])
+  
+  const search = () => {
+    fetch(`https://jsonplaceholder.typicode.com/users?name=${query.current.value}`)
+      .then((res) => res.json())
+      .then((json) => setItemList(json))
+  };
+
 
 
   return (
@@ -21,15 +29,23 @@ function handleUser() {
         <Navbar />
         <div className='search-container'>
           <div className="search-inner">
-            <input type="search" id='search-bar' placeholder='Enter Your Region' />
-            <button onClick={handleUser}> Search </button>
+            <input type="search" ref={query} id='search-bar' placeholder='Enter Your Region' />
+            <button onClick={search}> Search </button>
           </div>
         </div>
-        {user.map((userInfo)=>(
+        {itemList.map((userInfo)=>(
           <div className="api-info">
-            <h1>{userInfo && userInfo.name}</h1>
-            <h3><ins>{userInfo && userInfo.username}</ins></h3>
-            <h2>{userInfo && userInfo.email}</h2>
+            <h1>{userInfo.name}</h1>
+            <h3><ins>{userInfo.email}</ins></h3>
+            <h2>{userInfo.website}</h2>
+          </div>
+        ))}
+
+        {searched.map((userInfo)=>(
+          <div className="api-info">
+            <h1>{userInfo.name}</h1>
+            <h3><ins>{userInfo.email}</ins></h3>
+            <h2>{userInfo.website}</h2>
           </div>
         ))}
       </div>
